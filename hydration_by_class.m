@@ -1,7 +1,3 @@
-% hydration_by_class.m
-clear; clc;
-
-% Folder containing the CSV files
 folder = './';  % or specify full path
 
 % Define elastic moduli and corresponding suffixes
