@@ -1,11 +1,11 @@
 import os
-os.chdir("/Users/hojin/Library/CloudStorage/OneDrive-SharedLibraries-GeorgiaInstituteofTechnology/Harris, Tequila A - Hojin/Literature and Data/_hydro_chitosan_kMC")
+os.chdir("")
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import correlate
 
 # === Load hydration map ===
-hydration_map = np.loadtxt("/Users/hojin/Library/CloudStorage/OneDrive-SharedLibraries-GeorgiaInstituteofTechnology/Harris, Tequila A - Hojin/Literature and Data/_hydro_chitosan_kMC/Radial Correlation/n20_E0_5_hydration_map.csv", delimiter=",")
+hydration_map = np.loadtxt("", delimiter=",") # load hydration map
 grid_shape = (48, 28, 10)  # ← UPDATE to your actual voxel dimensions
 hydration_3d = hydration_map.reshape(grid_shape)
 
