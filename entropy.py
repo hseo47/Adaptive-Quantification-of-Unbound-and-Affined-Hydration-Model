@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import entropy
 
 # === Base path ===
-base_path = "/Users/hojin/Library/CloudStorage/OneDrive-SharedLibraries-GeorgiaInstituteofTechnology/Harris, Tequila A - Hojin/Literature and Data/_hydro_chitosan_kMC/Entropy/"
+base_path = "" # specify base file path
 
 # === Files ===
 files = [
