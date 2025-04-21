@@ -7,11 +7,12 @@ from matplotlib.lines import Line2D
 import os
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
+os.chdir(base_dir)  # Make sure we are operating in the script's directory
 
 # === Load molecule and generate coordinates ===
 repeat_unit = "NC(CO)C(CO)"
-n_units = 20
-E_PDMS = 1.75  # MPa — must match the value used in the generator script
+n_units = 
+E_PDMS =   # MPa — must match the value used in the generator script
 smiles = repeat_unit * n_units
 mol = Chem.MolFromSmiles(smiles)
 mol = Chem.AddHs(mol)
@@ -38,17 +39,24 @@ y_range = np.arange(min_coord[1], max_coord[1], grid_size)
 z_range = np.arange(min_coord[2], max_coord[2], grid_size)
 
 # === Load hydration field ===
-hydration_flat = np.loadtxt("hydration_map.csv", delimiter=",")
+hydration_filename = f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_') + "_hydration_map.csv"
+hydration_flat = np.loadtxt(hydration_filename, delimiter=",")
 # Load expected voxel shape from corresponding distribution file
 distrib_filename = os.path.join(base_dir, f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_') + "_hyd_distrib.txt")
 print(f"🧭 Looking for hydration distribution file at: {distrib_filename}")
 print(f"📂 Current working directory: {os.getcwd()}")
 print(f"📁 Files in script directory: {os.listdir(base_dir)}")
-with open(distrib_filename) as f:
-    lines = f.readlines()
-    x_voxels = int([l for l in lines if "x_voxels" in l][0].split(":")[1])
-    y_voxels = int([l for l in lines if "y_voxels" in l][0].split(":")[1])
-    z_voxels = int([l for l in lines if "z_voxels" in l][0].split(":")[1])
+try:
+    with open(distrib_filename) as f:
+        lines = f.readlines()
+        x_voxels = int([l for l in lines if "x_voxels" in l][0].split(":")[1])
+        y_voxels = int([l for l in lines if "y_voxels" in l][0].split(":")[1])
+        z_voxels = int([l for l in lines if "z_voxels" in l][0].split(":")[1])
+except Exception as e:
+    print(f"⚠️ Failed to parse voxel shape from distribution file. Trying to infer from CSV...")
+    x_voxels = len(x_range)
+    y_voxels = len(y_range)
+    z_voxels = len(z_range)
 expected_size = x_voxels * y_voxels * z_voxels
 if hydration_flat.shape[0] != expected_size:
     raise ValueError(f"Expected {expected_size} values but got {hydration_flat.shape[0]}")
@@ -121,7 +129,10 @@ for i in bonded_oh_indices:
 plt.rcParams['font.family'] = 'Helvetica'
 plt.tight_layout()
 plot_filename = f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_') + "_hydration_plot.png"
-plt.savefig(os.path.join(base_dir, plot_filename), dpi=300)
-
-with open(distrib_filename, 'a') as f:
-    f.write(f"max_hydration: {hydration_grid.max()}\n")
+print("🔥 Reached the savefig line.")
+print(f"Saving to → {os.path.abspath(plot_filename)}")
+print(f"Figure has {len(ax.collections)} collections and {len(ax.texts)} text annotations.")
+plt.savefig(plot_filename, dpi=300, bbox_inches='tight')
+print(f"🖼 Saved plot to: {plot_filename}")
+plt.show()
+# plt.close()
