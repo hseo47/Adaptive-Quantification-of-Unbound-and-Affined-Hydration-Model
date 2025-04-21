@@ -1,16 +1,9 @@
-% analyze_avg_hydration_per_monomer.m
-% Reads n20_E{value}_hyd_distrib.txt files and plots hydration vs E
+files = dir(' .txt'); % import txt file
 
-clc; clear;
-
-% Grab all hydration files in current folder
-files = dir('n20_E*_hyd_distrib.txt');
-
-% Storage
 E_values = [];
 hydration_values = [];
 
-n_units = 20;  % fixed chain length
+n_units = ;  % define chain length
 
 for i = 1:length(files)
     filename = files(i).name;
@@ -66,7 +59,7 @@ end
 hydration_sorted = hydration_values(idx);
 avg_hydration_per_monomer = hydration_sorted / n_units;
 
-% === Show table for sanity check ===
+% === Table ===
 disp(table(E_values_sorted', avg_hydration_per_monomer', ...
     'VariableNames', {'E', 'AvgHydration'}))
 
