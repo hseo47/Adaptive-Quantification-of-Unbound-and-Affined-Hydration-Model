@@ -3,18 +3,21 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from scipy.special import expi
 import os
+n_units =   # Adjust this to control chain length
+E_PDMS =   # Adjust this to control substrate modulus
 base_dir = os.path.dirname(os.path.abspath(__file__))
+output_dir = os.path.join(base_dir, f"output_n{n_units}_E{E_PDMS:.1f}".replace('.', '_'))
+os.makedirs(output_dir, exist_ok=True)
 
 # === Molecule setup ===
 repeat_unit = "NC(CO)C(CO)"
-n_units = 20  # Adjust this to control chain length
 smiles = repeat_unit * n_units
 mol = Chem.MolFromSmiles(smiles)
 mol = Chem.AddHs(mol)
 AllChem.EmbedMolecule(mol, AllChem.ETKDG())
 conf = mol.GetConformer()
 
-# === Functional group hydration weights ===
+# === Functional group hydration weights from polarity ===
 hydration_weights = {
     "O": 1.0,     # e.g. hydroxyl
     "N": 1.4,     # protonated amines (NH3+)
@@ -22,12 +25,12 @@ hydration_weights = {
     "H": 0.1      # small contribution
 }
 
-# === Identify primary hydroxyls (C-O-H where C is primary carbon) ===
+# === Identify primary hydroxyls ===
 primary_oh_smarts = Chem.MolFromSmarts("[CH2][OH]")
 matches = mol.GetSubstructMatches(primary_oh_smarts)
 primary_oh_indices = [match[1] for match in matches]
 
-# Randomly select 40% of these to simulate PDMS bonding
+# Randomly select 40% of these to simulate PDMS bonding (Experimental Value)
 np.random.seed(42)
 bonded_oh_indices = set(np.random.choice(primary_oh_indices, size=int(0.4 * len(primary_oh_indices)), replace=False))
 
@@ -43,6 +46,13 @@ y_range = np.arange(min_coord[1], max_coord[1], grid_size)
 z_range = np.arange(min_coord[2], max_coord[2], grid_size)
 
 voxel_grid = np.zeros((len(x_range), len(y_range), len(z_range)))
+
+class_contributions = {
+    "N": np.zeros_like(voxel_grid),
+    "O": np.zeros_like(voxel_grid),
+    "C": np.zeros_like(voxel_grid),
+    "H": np.zeros_like(voxel_grid)
+}
 
 # === Hydration model (Gaussian kernel) ===
 sigma = 1.5  # Å, width of Gaussian kernel
@@ -66,7 +76,6 @@ for atom in mol.GetAtoms():
             preferred_directions[idx] = norm_vec
  
 # === PDMS modulus-driven shielding factor ===
-E_PDMS = 1.75  # MPa — change to 0.5 for soft PDMS
 hydration_boost = max(expi(E_PDMS), 0)
 for i, x in enumerate(x_range):
     for j, y in enumerate(y_range):
@@ -95,17 +104,20 @@ for i, x in enumerate(x_range):
                     angle_deg = np.degrees(np.arccos(angle_cos))
                     theta0 = theta_pref.get(atom_symbol, 90)
                     direction_factor = np.exp(-(angle_deg - theta0)**2 / (2 * sigma_theta**2))
-                total += steric_attenuation * w * np.exp(-dist**2 / (2 * sigma**2)) * direction_factor
-            voxel_grid[i, j, k] = total
-
+                contrib = steric_attenuation * w * np.exp(-dist**2 / (2 * sigma**2)) * direction_factor
+                if atom_symbol in ["N", "O", "C", "H"]:
+                    class_contributions[atom_symbol][i, j, k] += contrib
+                total += contrib
+                voxel_grid[i, j, k] = total
+                        
 # === Flatten and save ===
 flat = voxel_grid.flatten()
-output_path = os.path.join(base_dir, "hydration_map.csv")
+filename_suffix = f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_')
+output_path = os.path.join(output_dir, f"{filename_suffix}_hydration_map.csv")
 # Save hydration distribution with unique filename
 hydration_mean = voxel_grid.mean()
 hydration_std = voxel_grid.std()
-filename_suffix = f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_')
-distrib_path = os.path.join(base_dir, f"{filename_suffix}_hyd_distrib.txt")
+distrib_path = os.path.join(output_dir, f"{filename_suffix}_hyd_distrib.txt")
 with open(distrib_path, "w") as f:
     f.write(f"mean: {hydration_mean:.4f}\n")
     f.write(f"std: {hydration_std:.4f}\n")
@@ -113,8 +125,13 @@ with open(distrib_path, "w") as f:
     f.write(f"E_PDMS: {E_PDMS:.2f} MPa\n")
     f.write(f"total_voxels: {voxel_grid.size}\n")
     np.savetxt(output_path, flat, delimiter=",")
-
-## === Voxel classification based on hydration strength ===
+    
+for atom_type, grid in class_contributions.items():
+    atom_output_path = os.path.join(output_dir, f"{filename_suffix}_hydration_{atom_type}.csv")
+    np.savetxt(atom_output_path, grid.flatten(), delimiter=",")
+    print(f"🧪 Saved per-atom hydration: {atom_output_path}")
+    
+# === Voxel classification based on hydration strength ===
 hydration_classes = np.zeros_like(voxel_grid, dtype=int)
 v90 = np.percentile(voxel_grid, 90)
 v40 = np.percentile(voxel_grid, 40)
@@ -123,8 +140,10 @@ hydration_classes[voxel_grid >= v90] = 2  # Tightly bound
 hydration_classes[(voxel_grid >= v40) & (voxel_grid < v90)] = 1  # Weakly bound
 hydration_classes[voxel_grid < v40] = 0  # Free/unbound
 
-class_output_path = os.path.join(base_dir, "hydration_class_map.csv")
-np.savetxt(class_output_path, hydration_classes.flatten(), delimiter=",", fmt='%d')
+# === Save hydration class map for voxel-by-voxel analysis ===
+class_map_output = os.path.join(output_dir, f"{filename_suffix}_hydration_class_map.csv")
+np.savetxt(class_map_output, hydration_classes.flatten(), delimiter=",", fmt='%d')
+print(f"📊 Hydration class map saved to: {class_map_output}")
 
 total_voxels = hydration_classes.size
 counts = [(hydration_classes == i).sum() for i in range(3)]
@@ -139,6 +158,7 @@ with open(distrib_path, "a") as f:
     f.write(f"z_voxels: {len(z_range)}\n")
     f.write("voxel_values:\n")
     np.savetxt(f, flat, delimiter=",", fmt="%.6f")
+    f.write(f"max_hydration: {voxel_grid.max():.6f}\n")
 print(f"✅ Hydration map saved to: {output_path}")
-print(f"📊 Hydration class map saved to: {class_output_path}")
-print(f"ℹ️  Shielded {len(bonded_oh_indices)} primary hydroxyls from hydration due to PDMS bonding.")
+print(f"📊 Hydration class map saved to: {class_map_output}")
+print(f"📁 All files saved in: {output_dir}")
