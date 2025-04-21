@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # === Configuration ===
-hydration_file = "/Users/hojin/Library/CloudStorage/OneDrive-SharedLibraries-GeorgiaInstituteofTechnology/Harris, Tequila A - Hojin/Literature and Data/_hydro_chitosan_kMC/Anisotropy/n20_E2_0_hydration_map.csv"
+hydration_file = " " # hydration map file
 grid_shape = (48, 28, 10)  # (X, Y, Z)
 
 # === Load and reshape ===
