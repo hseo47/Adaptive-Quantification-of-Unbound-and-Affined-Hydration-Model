@@ -75,19 +75,4 @@ anisotropy.py
 ```
 ```bash
 entropy.py
-```
-
-## 📁 File Structure
-
-hydratedPolymer
-smiles_to_hydration_map.py   
-plot_hydration_map.py
-avg_hydration.m
-hydration_by_class.m
-visualize_shielding_radius.py
-radial_decay.py
-radial_correlation.py
-anisotropy.py
-entropy.py
-*.csv / *.txt / *.png     
-README.md # you are here                   
+```                 
