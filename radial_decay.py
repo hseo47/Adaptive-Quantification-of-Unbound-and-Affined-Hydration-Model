@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
 # === Load hydration map ===
-base_path = "/Users/hojin/Library/CloudStorage/OneDrive-SharedLibraries-GeorgiaInstituteofTechnology/Harris, Tequila A - Hojin/Literature and Data/_hydro_chitosan_kMC/Radial Correlation/"
+base_path = "" # load base path
 files = [
     (base_path + "n20_E0_5_hydration_map.csv", 0.5),
     (base_path + "n20_E0_75_hydration_map.csv", 0.75),
