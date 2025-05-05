@@ -1,12 +1,12 @@
 # Hydro-Softening-Simulation: A Voxel-Based Model of Steric-Confined Water in Polymeric Networks
 
-> _Simulating steric shielding and directional hydration in chitosan films bonded to soft or stiff PDMS substrates (Nat. Commun. In Review)._
+> _Simulating steric shielding and directional hydration in hydro-softened polymeric films (Nat. Commun. In Review)._
 
 ## 🧠 Project Overview
-HydratedPolymer is a  simulation framework that models hydration potential in flexible hydrophilic polymer chains (e.g., chitosan) using a voxelized Gaussian kernel influenced by interfacial steric effects. The model maps 3D hydration fields with respect to:
+Hydro-Softening-Simulation is a  simulation framework that models hydration potential in flexible hydrophilic polymer chains using a voxelized Gaussian kernel influenced by interfacial steric effects. The model maps 3D hydration fields with respect to:
 
-- Local atomic polarity (NH3+, OH, CH)
-- Substrate stiffness (via PDMS modulus in MPa)
+- Local atomic polarity 
+- Substrate stiffness 
 - Spatial steric shielding from bonded sites
 - Directional confinement effects
 
