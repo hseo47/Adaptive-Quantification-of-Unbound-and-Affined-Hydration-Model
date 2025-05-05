@@ -1,4 +1,4 @@
-# hydratedPolymer: A Voxel-Based Model of Steric-Confined Water Binding in Polymeric Networks
+# Hydro-Softening-Simulation: A Voxel-Based Model of Steric-Confined Water in Polymeric Networks
 
 > _Simulating steric shielding and directional hydration in chitosan films bonded to soft or stiff PDMS substrates (Nat. Commun. In Review)._
 
