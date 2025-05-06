@@ -4,7 +4,7 @@
 
 ---
 
-## 🧠 Project Overview
+## Project Overview
 
 **Hydro-Softening-Simulation** is a voxel-based computational framework designed to simulate hydration behavior in flexible polymer chains under the influence of steric confinement from bonded interfaces, such as soft elastomer substrates. It models local hydration potential based on:
 
@@ -18,7 +18,7 @@ This framework enables analysis of water localization, entropic redistribution, 
 
 ---
 
-## 🔬 Motivation
+## Motivation
 
 Hydro-softening describes a condition where polymers become mechanically softer in the presence of soft interfaces, largely due to enhanced hydration under confined geometries. This framework bridges real-space simulation with measurable material behavior, enabling:
 
@@ -29,18 +29,18 @@ Hydro-softening describes a condition where polymers become mechanically softer 
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 To run the Hydro-Softening-Simulation, you’ll need the following:
 
-### 🐍 Python Environment
+### Python Environment
 - Python ≥ 3.8 (recommended: 3.11+)
 - Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-### 🧪 Required Python Packages
+### Required Python Packages
 - `numpy`
 - `matplotlib`
 - `scipy`
@@ -49,7 +49,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📁 File Structure
+## File Structure
 
 | Script | Description |
 |--------|-------------|
@@ -69,7 +69,7 @@ pip install -r requirements.txt
 
 ---
 
-## 🚀 Quickstart
+## Operation
 
 ### 1. Clone the Repository
 ```bash
