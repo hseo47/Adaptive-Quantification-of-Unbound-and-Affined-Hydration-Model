@@ -1,31 +1,24 @@
-# Hydro-Softening-Simulation
+# AQUA (Adaptive Quantification of Unbound and Affined) Hydration Model 💧
 
-> _Simulating steric shielding and directional hydration in hydro-softened polymeric films (Nat. Commun., In Review)._
+## Project Motivation and Overview
 
----
+***Mechanical properties of polymeric materials are determined by the disproportionately small, tightly-bonded water particles*** 💧 ***near the polymer backbone.*** 
 
-## Project Overview
+**AQUA** is a voxel-based computational framework designed to interpret hydration behavior in flexible polymer chains under the influence of steric confinement from bonded interfaces, such as soft elastomer substrates. It models local hydration potential based on:
 
-**Hydro-Softening-Simulation** is a voxel-based computational framework designed to simulate hydration behavior in flexible polymer chains under the influence of steric confinement from bonded interfaces, such as soft elastomer substrates. It models local hydration potential based on:
-
-- Atomic polarity from SMILES-derived structures  
-- Substrate-induced steric shielding (via bonded hydroxyls)  
+- Atomic polarity from chemical structures  
+- Substrate-induced steric shielding effects 
 - Spatial anisotropy and directional decay  
 - Voxel-based hydration fields using Gaussian kernels  
-- Mechanical softening effects driven by substrate modulus
 
-This framework enables analysis of water localization, entropic redistribution, and thermodynamic behavior across varied bonding conditions.
+We have previously demonstrated softening of rigid materials with nanoscale confinement of water.
 
----
-
-## Motivation
-
-Hydro-softening describes a condition where polymers become mechanically softer in the presence of soft interfaces, largely due to enhanced hydration under confined geometries. This framework bridges real-space simulation with measurable material behavior, enabling:
-
-- Prediction of hydration trends from interfacial stiffness  
-- Visualization of hydration anisotropy and shielding  
-- Thermodynamic analysis (T–dS cycles, entropy modulation, radial decay)  
-- Foundation for material design rules across biointerface systems  
+For more information on **Hydro-Softening** and Water-Mediated Material Property Changes:
+- Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (*Nat. Commun., In Review*). 🧪
+- Enhancing Bacterial Adhesion with Hydro-Softened Chitosan Films (*In Review*). 🦠
+- Hydration Confinement as a Thermodynamic Driver of Hydro-Softening 
+  via Adaptive-Quantification-of-Unbound-and-Affined (AQUA) Hydration Model
+  **(Manuscript Linked to this Work)** 🖥️
 
 ---
 
