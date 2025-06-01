@@ -27,11 +27,7 @@ For more information on **Hydro-Softening** and Water-Mediated Material Property
 To run the Hydro-Softening-Simulation, you’ll need the following:
 
 ### Python Environment
-- Python ≥ 3.8 (recommended: 3.11+)
-- Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+- `Python ≥ 3.8 (recommended: 3.11+)`
 
 ### Required Python Packages
 - `numpy`
@@ -39,6 +35,11 @@ pip install -r requirements.txt
 - `scipy`
 - `rdkit`
 - `fonttools`
+
+### OPTIONALLY: To Run MD as a Comparison to AQUA
+- `openMM`
+- `openFF-toolkit`
+- `mdtraj`
 
 ---
 
