@@ -1,10 +1,10 @@
-# 💧 AQUA (Adaptive Quantification of Unbound and Affined) Hydration Model 💧
+# 💧 AQUA Hydration Model 💧
 
 ## Project Motivation and Overview
 
 ***Mechanical properties of polymeric materials are determined by the disproportionately small, tightly-bonded water particles*** 💧 ***near the polymer backbone.*** 
 
-**AQUA** is a voxel-based computational framework designed to interpret hydration behavior in flexible polymer chains under the influence of steric confinement from bonded interfaces, such as soft elastomer substrates. It models local hydration potential based on:
+**AQUA** (Adaptive Quantification of Unbound and Affined) is a voxel-based computational framework designed to interpret hydration behavior in polymer chains under the influence of steric confinement from bonded interfaces. It models local hydration potential based on:
 
 - Atomic polarity from chemical structures  
 - Substrate-induced steric shielding effects 
