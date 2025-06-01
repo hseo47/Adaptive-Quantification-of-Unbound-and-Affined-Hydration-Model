@@ -1,4 +1,4 @@
-# AQUA (Adaptive Quantification of Unbound and Affined) Hydration Model 💧
+# 💧 AQUA (Adaptive Quantification of Unbound and Affined) Hydration Model 💧
 
 ## Project Motivation and Overview
 
