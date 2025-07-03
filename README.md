@@ -45,5 +45,5 @@ To run the Hydro-Softening-Simulation, you’ll need the following:
 | `runAQUA.py` | Core script. |
 | `plot.py` | Hydration map visualization. |
 | `plotClass.py` | Hydration microstates visualization. |
-| `entropy_tail_behavior_analysis.py` | Hydration entropy and tail behavior across systems, visualzied. |
+| `entropyTail.py` | Hydration entropy and tail behavior across systems, visualzied. |
 | `radialDecayHeatmap.py` | Hydration microstate field decay as a function of substrate effects and radius, visualized. |
