@@ -18,13 +18,12 @@ AllChem.EmbedMolecule(mol, AllChem.ETKDG())
 conf = mol.GetConformer()
 
 hydration_weights = {
-    "O": 1.0,     # e.g. hydroxyl
-    "N": 1.4,     # protonated amines (NH3+)
-    "C": 0.3,     # aliphatic C
-    "H": 0.1      # small contribution
+    "O": 1.0,     
+    "N": 1.4,    
+    "C": 0.3,     
+    "H": 0.1      
 }
 
-# === Identify primary hydroxyls (C-O-H where C is primary carbon) ===
 primary_oh_smarts = Chem.MolFromSmarts("[CH2][OH]")
 matches = mol.GetSubstructMatches(primary_oh_smarts)
 primary_oh_indices = [match[1] for match in matches]
@@ -152,12 +151,10 @@ print(f"Hydration map saved to: {output_path}")
 print(f"Hydration class map saved to: {class_map_output}")
 print(f"All files saved in: {output_dir}")
 
-# === Export per-class voxel values for streamlined entropy/TdS analysis ===
 free_voxels = voxel_grid[hydration_classes == 0].flatten()
 weak_voxels = voxel_grid[hydration_classes == 1].flatten()
 tight_voxels = voxel_grid[hydration_classes == 2].flatten()
 
-# Ensure all files include the correct filename_suffix and are saved to output_dir
 free_path = os.path.join(output_dir, f"{filename_suffix}_hydration_free.csv")
 weak_path = os.path.join(output_dir, f"{filename_suffix}_hydration_weak.csv")
 tight_path = os.path.join(output_dir, f"{filename_suffix}_hydration_tight.csv")
