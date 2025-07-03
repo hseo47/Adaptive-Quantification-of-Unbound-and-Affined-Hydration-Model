@@ -11,14 +11,9 @@
 - Spatial anisotropy and directional decay  
 - Voxel-based hydration fields using Gaussian kernels  
 
-We have previously demonstrated softening of rigid materials with nanoscale confinement of water.
-
 For more information on **Hydro-Softening** and Water-Mediated Material Property Changes:
-- Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (*Nat. Commun., In Review*). 🧪
+- Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (**Manuscript Linked to this Workw**). 🧪
 - Enhancing Bacterial Adhesion with Hydro-Softened Chitosan Films (*In Review*). 🦠
-- Hydration Confinement as a Thermodynamic Driver of Hydro-Softening 
-  via Adaptive-Quantification-of-Unbound-and-Affined (AQUA) Hydration Model
-  **(Manuscript Linked to this Work)** 🖥️
 
 ---
 
