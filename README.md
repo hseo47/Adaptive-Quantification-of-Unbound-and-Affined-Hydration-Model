@@ -31,11 +31,6 @@ To run the Hydro-Softening-Simulation, you’ll need the following:
 - `rdkit`
 - `fonttools`
 
-### OPTIONALLY: To Run MD as a Comparison to AQUA
-- `openMM`
-- `openFF-toolkit`
-- `mdtraj`
-
 ---
 
 ## File Structure
@@ -45,5 +40,3 @@ To run the Hydro-Softening-Simulation, you’ll need the following:
 | `runAQUA.py` | Core script. |
 | `plot.py` | Hydration map visualization. |
 | `plotClass.py` | Hydration microstates visualization. |
-| `entropyTail.py` | Hydration entropy and tail behavior across systems, visualzied. |
-| `radialDecayHeatmap.py` | Hydration microstate field decay as a function of substrate effects and radius, visualized. |
