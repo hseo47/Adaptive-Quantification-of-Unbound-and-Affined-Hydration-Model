@@ -7,10 +7,10 @@ import os
 n_units = 1  
 E_PDMS = 1.75  
 base_dir = os.path.dirname(os.path.abspath(__file__))
-output_dir = os.path.join(base_dir, f"output_n{n_units}_E{E_PDMS:.1f}".replace('.', '_'))
+output_dir = os.path.join(base_dir, f"output_n{n_units}_E{E_Substrate:.1f}".replace('.', '_'))
 os.makedirs(output_dir, exist_ok=True)
 
-repeat_unit = "COC(=O)N[C@@H]1[C@H]([C@@H]([C@H](O[C@H]1O[C@@H]2[C@H](O[C@H]([C@@H]([C@H]2O)N)O[C@@H]3[C@H](O[C@H]([C@@H]([C@H]3O)N)O)CO)CO)CO)O[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)CO)O[C@H]6[C@@H]([C@H]([C@@H]([C@H](O6)CO)O[C@H]7[C@@H]([C@H]([C@@H]([C@H](O7)CO)O[C@H]8[C@@H]([C@H]([C@@H]([C@H](O8)CO)O[C@H]9[C@@H]([C@H]([C@@H]([C@H](O9)CO)O)O)N)O)N)O)N)O)N)O)N)O)N)O"
+repeat_unit = "SMILES STRING OF YOUR DESIRED POLYMER"
 smiles = repeat_unit * n_units
 mol = Chem.MolFromSmiles(smiles)
 mol = Chem.AddHs(mol)
@@ -23,6 +23,8 @@ hydration_weights = {
     "C": 0.3,     
     "H": 0.1      
 }
+
+##YOUR DESIRED STERIC MECHANISM TO REPLACE THE FOLLOWING SECTION OF THE CODE##
 
 primary_oh_smarts = Chem.MolFromSmarts("[CH2][OH]")
 matches = mol.GetSubstructMatches(primary_oh_smarts)
@@ -49,11 +51,11 @@ class_contributions = {
     "H": np.zeros_like(voxel_grid)
 }
 
-sigma = 1.5  # Å, width of Gaussian kernel
-sigma_theta = 25  # degrees, angular width of directional hydration
+sigma = 1.5  # Gaussian kernel resolution, adjust accordingly
+sigma_theta = 25 
 theta_pref = {
-    "O": 110,   # OH hydrogen bonding angle
-    "N": 109    # NH3+ hydrogen bonding lobe (idealized tetrahedral)
+    "O": 110, 
+    "N": 109 
 }
 
 preferred_directions = {}
@@ -76,18 +78,17 @@ for i, x in enumerate(x_range):
             total = 0
             for atom_idx, atom_pos in enumerate(atom_coords):
                 if atom_idx in bonded_oh_indices:
-                    continue  # Skip bonded OHs
+                    continue  
                 dist = np.linalg.norm(point - atom_pos)
                 if dist < 0.5:
                     dist = 0.5
                 atom_symbol = mol.GetAtomWithIdx(atom_idx).GetSymbol()
                 w = hydration_weights.get(atom_symbol, 0.2)
-                # Steric shielding attenuation from bonded OHs
                 steric_attenuation = 1.0
                 for shield_idx in bonded_oh_indices:
                     shield_pos = atom_coords[shield_idx]
                     shield_dist = np.linalg.norm(point - shield_pos)
-                    steric_attenuation *= 1 + hydration_boost * np.exp(-shield_dist**2 / (2 * (2.5**2)))  # hydration-enhancing effect
+                    steric_attenuation *= 1 + hydration_boost * np.exp(-shield_dist**2 / (2 * (2.5**2)))
                 direction_factor = 1.0
                 if atom_idx in preferred_directions:
                     atom_to_point = point - atom_pos
@@ -101,7 +102,7 @@ for i, x in enumerate(x_range):
                     class_contributions[atom_symbol][i, j, k] += contrib
                 total += contrib
                 voxel_grid[i, j, k] = total
-                        
+                
 flat = voxel_grid.flatten()
 filename_suffix = f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_')
 output_path = os.path.join(output_dir, f"{filename_suffix}_hydration_map.csv")
