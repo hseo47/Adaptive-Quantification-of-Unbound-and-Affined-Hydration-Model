@@ -2,7 +2,7 @@
 
 ## Project Motivation and Overview
 
-***Mechanical properties of polymeric materials are determined by the disproportionately small, tightly-bonded water particles*** 💧 ***near the polymer backbone.*** 
+***Mechanical properties of polymeric materials are determined by the disproportionately small, tightly-bonded water particles*** ***near the polymer backbone.*** 
 
 **AQUA** (Adaptive Quantification of Unbound and Affined) Hydration Model is a voxel-based computational framework designed to interpret hydration behavior in polymer chains under the influence of steric confinement from bonded interfaces. It models local hydration potential based on:
 
@@ -12,7 +12,7 @@
 - Voxel-based hydration fields using Gaussian kernels  
 
 For more information on **Hydro-Softening** and Water-Mediated Material Property Changes:
-- Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (**Manuscript Linked to this Workw**). 🧪
+- Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (**Manuscript Linked to this Work**). 🧪
 - Enhancing Bacterial Adhesion with Hydro-Softened Chitosan Films (*In Review*). 🦠
 
 ---
