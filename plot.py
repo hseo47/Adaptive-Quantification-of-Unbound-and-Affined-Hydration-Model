@@ -25,7 +25,7 @@ plt.rcParams['axes.unicode_minus'] = False
 
 os.chdir(base_dir)  
 
-repeat_unit = "COC(=O)N[C@@H]1[C@H]([C@@H]([C@H](O[C@H]1O[C@@H]2[C@H](O[C@H]([C@@H]([C@H]2O)N)O[C@@H]3[C@H](O[C@H]([C@@H]([C@H]3O)N)O)CO)CO)CO)O[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)CO)O[C@H]6[C@@H]([C@H]([C@@H]([C@H](O6)CO)O[C@H]7[C@@H]([C@H]([C@@H]([C@H](O7)CO)O[C@H]8[C@@H]([C@H]([C@@H]([C@H](O8)CO)O[C@H]9[C@@H]([C@H]([C@@H]([C@H](O9)CO)O)O)N)O)N)O)N)O)N)O)N)O)N)O"
+repeat_unit = "YOUR SMILES STRING GOES HERE"
 n_units = 1
 E_PDMS = 0.5  
 smiles = repeat_unit * n_units
@@ -55,7 +55,7 @@ z_range = np.arange(min_coord[2], max_coord[2], grid_size)
 output_folder = f"output_n{n_units}_E{E_PDMS:.1f}".replace('.', '_')
 hydration_filename = os.path.join(output_folder, f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_') + "_hydration_map.csv")
 hydration_flat = np.loadtxt(hydration_filename, delimiter=",")
-# Load expected voxel shape from corresponding distribution file
+
 distrib_filename = os.path.join(base_dir, output_folder, f"n{n_units}_E{E_PDMS:.1f}".replace('.', '_') + "_hyd_distrib.txt")
 print(f"Looking for hydration distribution file at: {distrib_filename}")
 print(f"Current working directory: {os.getcwd()}")
