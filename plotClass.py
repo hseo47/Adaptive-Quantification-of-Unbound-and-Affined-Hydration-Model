@@ -5,9 +5,9 @@ from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.font_manager as fm
 from matplotlib.lines import Line2D
 
-n_units    = 1
-E_PDMS     = 0.5   
-REF_E_PDMS = 2.0   
+n_units    = 1   # REPEATING UNIT FOR YOUR POLYMER OF INTEREST
+E_PDMS     = 0.5 # SUBSTRATE, REPLACE AS NECESSARY  
+REF_E_PDMS = 2.0 # SUBSTRATE, REPLACE AS NECESSARY (FOR GLOBAL MAXIMA)  
 
 def _parse_line(text, key):
     for line in text.splitlines():
@@ -109,11 +109,10 @@ base_colors = {
 }
 labels = {0: "Unbound", 1: "Weakly Bound", 2: "Tightly Bound"}
 
-# per-class alpha values (lighter for unbound, stronger for tightly bound)
 class_alphas = {
-    0: 0.1,   # very faint for unbound
-    1: 0.2,   # slightly stronger for weakly bound
-    2: 0.3    # strongest for tightly bound
+    0: 0.1,   
+    1: 0.2,   
+    2: 0.3    
 }
 
 from rdkit import Chem
@@ -122,7 +121,7 @@ import matplotlib.cm as cm
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 
-chitosan_1mer_smiles = "COC(=O)N[C@@H]1[C@H]([C@@H]([C@H](O[C@H]1O[C@@H]2[C@H](O[C@H]([C@@H]([C@H]2O)N)O[C@@H]3[C@H](O[C@H]([C@@H]([C@H]3O)N)O)CO)CO)CO)O[C@H]4[C@@H]([C@H]([C@@H]([C@H](O4)CO)O[C@H]5[C@@H]([C@H]([C@@H]([C@H](O5)CO)O[C@H]6[C@@H]([C@H]([C@@H]([C@H](O6)CO)O[C@H]7[C@@H]([C@H]([C@@H]([C@H](O7)CO)O[C@H]8[C@@H]([C@H]([C@@H]([C@H](O8)CO)O[C@H]9[C@@H]([C@H]([C@@H]([C@H](O9)CO)O)O)N)O)N)O)N)O)N)O)N)O)N)O"
+chitosan_1mer_smiles = "YOUR DESIRED SMILES STRING"
 mol = Chem.MolFromSmiles(chitosan_1mer_smiles)
 mol = Chem.AddHs(mol)
 AllChem.EmbedMolecule(mol, AllChem.ETKDG())
