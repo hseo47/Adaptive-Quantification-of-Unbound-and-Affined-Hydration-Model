@@ -15,6 +15,8 @@ For more information on **Hydro-Softening** and Water-Mediated Material Property
 - Skin-Inspired Hydro-Softening Enables Flexible Chitosan Films (**Manuscript Linked to this Work**). 🧪
 - Enhancing Bacterial Adhesion with Hydro-Softened Chitosan Films (*In Review*). 🦠
 
+The data supporting the findings of this study will be made available with the paper and its supplementary materials. In compliance with institutional data management policies, the full codebase is maintained on Georgia Tech’s GitHub Enterprise instance. A stable public version is available at https://github.com/hseo47/AQUA and will be archived at Zenodo. This public version includes usage instructions and all necessary dependencies for replication.
+
 ---
 
 ## Requirements
